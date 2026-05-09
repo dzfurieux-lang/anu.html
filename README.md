@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANUKSHIKA | Premium Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <title>ANUKSHIKA OS | The Queen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Syncopate:wght@400;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ================= VARIABLES & RESET ================= */
         :root {
-            --bg: #050505;
+            --bg: #0a0a0a;
             --text: #ffffff;
-            --gold: #D4AF37;
-            --jul-cyan: #00f0ff;
-            --roblox-red: #ff0055;
-            --sri-lanka: #8D153A;
+            --gold: #FFD700;
+            --sri-lanka-red: #8D153A;
+            --jul-alien: #00f0ff;
+            --roblox-oof: #ff0055;
+            --buddha-orange: #FF9933;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Cache le curseur de base */ }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: var(--bg);
@@ -27,325 +27,271 @@
             scroll-behavior: smooth;
         }
 
-        /* ================= CUSTOM CURSOR ================= */
-        .cursor {
-            width: 20px; height: 20px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
+        /* --- BOOT SCREEN (TROLL HACKING EFFECT) --- */
+        #boot-screen {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        .cursor-dot {
-            width: 4px; height: 4px;
-            background: var(--jul-cyan);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000;
+            color: #0f0;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            padding: 20px;
             z-index: 10000;
-            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .boot-text { margin-bottom: 10px; opacity: 0; }
+
+        /* --- MAIN CONTENT --- */
+        #main-content {
+            display: none; /* Hidden until boot finishes */
+            opacity: 0;
+            transition: opacity 2s ease-in;
         }
 
-        /* ================= BACKGROUND CANVAS ================= */
+        /* --- BACKGROUND --- */
         #canvas-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            opacity: 0.6;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; opacity: 0.4;
         }
 
-        /* ================= HERO SECTION ================= */
+        /* --- HERO --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(141, 21, 58, 0.2) 0%, transparent 70%);
         }
 
-        .birth-date {
-            font-family: 'Space Grotesk';
-            font-size: 1rem;
-            letter-spacing: 10px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .glitch-title {
+        .title-glitch {
             font-family: 'Syncopate', sans-serif;
             font-size: clamp(3rem, 8vw, 7rem);
             font-weight: 700;
-            text-transform: uppercase;
-            position: relative;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s infinite;
         }
 
-        .subtitle {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            background: linear-gradient(90deg, var(--gold), var(--jul-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, 15px); }
-        }
-
-        /* ================= PREMIUM BENTO GRID ================= */
+        /* --- BENTO GRID SYSTEM --- */
         .grid-container {
             max-width: 1400px;
-            margin: 100px auto;
+            margin: 0 auto 100px;
             padding: 20px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
         }
 
-        .tilt-card {
+        .card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             backdrop-filter: blur(10px);
-            transform-style: preserve-3d;
-            transition: border 0.3s;
-            opacity: 0;
-            transform: translateY(50px);
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .tilt-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .tilt-card:hover {
+        .card:hover {
+            transform: translateY(-5px);
             border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .card-content {
-            transform: translateZ(30px); /* Effet 3D du texte */
-        }
-
-        h2 {
+        .card h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 20px;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        p { line-height: 1.6; color: #a0a0a0; font-size: 1.1rem; }
+        /* --- SECTIONS SPÉCIFIQUES --- */
+        .sri-lanka-card { grid-column: span 8; border-top: 3px solid var(--sri-lanka-red); }
+        .religion-card { grid-column: span 4; border-top: 3px solid var(--buddha-orange); }
+        .jul-card { grid-column: span 6; border-top: 3px solid var(--jul-alien); }
+        .roblox-card { grid-column: span 6; border-top: 3px solid var(--roblox-oof); }
+        .calls-card { grid-column: span 12; background: linear-gradient(135deg, rgba(20,20,40,0.8), rgba(0,0,0,0.9)); border: 1px solid #8A2BE2; }
 
-        /* Specific Cards */
-        .card-sri-lanka { grid-column: span 2; border-top: 2px solid var(--gold); }
-        .card-jul { border-top: 2px solid var(--jul-cyan); }
-        .card-roblox { border-top: 2px solid var(--roblox-red); }
-        .card-calls { grid-column: span 2; border-top: 2px solid #8A2BE2; }
+        /* --- STATS TROLL --- */
+        .stat-bar { margin-top: 15px; }
+        .stat-bar span { display: block; font-size: 0.9rem; margin-bottom: 5px; color: #aaa; }
+        .bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 5px; }
 
-        /* ================= FOOTER ================= */
-        footer {
-            text-align: center;
-            padding: 100px 20px 50px;
+        .btn-troll {
+            margin-top: 30px;
+            padding: 15px 30px;
             font-family: 'Syncopate';
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+            transition: 0.2s;
         }
+        .btn-troll:hover { background: darkred; transform: scale(1.05); }
 
-        @media (max-width: 1024px) {
-            .grid-container { grid-template-columns: 1fr; }
-            .card-sri-lanka, .card-calls { grid-column: span 1; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+
+        @media (max-width: 900px) {
+            .sri-lanka-card, .religion-card, .jul-card, .roblox-card { grid-column: span 12; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Curseur Custom -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-dot" id="cursor-dot"></div>
+    <!-- BOOT SCREEN (TROLL) -->
+    <div id="boot-screen">
+        <div class="boot-text" id="line1">INITIALISATION DE L'OS ANUKSHIKA...</div>
+        <div class="boot-text" id="line2">CHARGEMENT DU PROFIL : SŒUR D'AMOUR... [OK]</div>
+        <div class="boot-text" id="line3">VERIFICATION DE L'ADN SRI LANKAIS... [100% PUR]</div>
+        <div class="boot-text" id="line4">CONNEXION AUX SERVEURS JUL (LA ZONE)... [D'OR ET DE PLATINE]</div>
+        <div class="boot-text" id="line5">ANALYSE DU NIVEAU ROBLOX... [ERREUR: NIVEAU NOOB DÉTECTÉ... ON L'AIME QUAND MÊME]</div>
+        <div class="boot-text" id="line6" style="color: yellow; margin-top: 20px;">DÉVERROUILLAGE DU SYSTÈME DANS 3... 2... 1...</div>
+    </div>
 
-    <!-- Fond Particules 3D -->
-    <canvas id="canvas-bg"></canvas>
+    <div id="main-content">
+        <canvas id="canvas-bg"></canvas>
 
-    <section class="hero">
-        <div class="birth-date">Est. 13 Juillet 2010</div>
-        <h1 class="glitch-title">ANUKSHIKA</h1>
-        <div class="subtitle">THE ULTIMATE SISTER</div>
-        <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-    </section>
+        <header class="hero">
+            <div style="color: var(--gold); font-size: 1.2rem; margin-bottom: 10px; letter-spacing: 5px;">EST. 13 JUILLET 2010</div>
+            <h1 class="title-glitch">ANUKSHIKA</h1>
+            <p style="font-size: 1.5rem; color: #ccc; margin-top: 10px;">L'Élue du Sri Lanka • Princesse de la Nuit • OOF Master</p>
+        </header>
 
-    <section class="grid-container" id="grid">
-        
-        <!-- SRI LANKA -->
-        <div class="tilt-card card-sri-lanka">
-            <div class="card-content">
-                <h2 style="color: var(--gold);"><i class="fa-solid fa-crown"></i> Héritage Sri Lankais</h2>
-                <p>Le sang royal du Sri Lanka coule dans ses veines. Une force de caractère, une élégance naturelle et un cœur immense. Elle n'est pas seulement ma sœur, elle est ma fierté absolue.</p>
+        <div class="grid-container">
+            
+            <!-- ORIGINES SRI LANKA (DÉTAILLÉ) -->
+            <div class="card sri-lanka-card">
+                <h2 style="color: var(--sri-lanka-red);"><i class="fa-solid fa-earth-asia"></i> HÉRITAGE SRI LANKAIS</h2>
+                <p style="color: #bbb; line-height: 1.6; margin-bottom: 20px;">
+                    Née avec la puissance du Lion de Ceylan. Anukshika représente l'élite absolue. Dans ses veines coule la force des ancêtres, et sur sa langue, une tolérance aux épices qui ferait pleurer un dragon. Un Kottu Roti supplément piment ? C'est juste son petit-déjeuner.
+                </p>
+                <div class="stat-bar">
+                    <span>Tolérance au piment (Échelle de Scoville)</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: red;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <span>Charisme Royal</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 95%; background: var(--gold);"></div></div>
+                </div>
             </div>
-        </div>
 
-        <!-- JUL -->
-        <div class="tilt-card card-jul">
-            <div class="card-content">
-                <h2 style="color: var(--jul-cyan);">👽 LA ZONE</h2>
-                <p>Team Jul validée. D'or et de platine au quotidien. Personne n'écoute le J avec autant de style qu'elle. C'est pas des LOL, c'est le sang.</p>
+            <!-- RELIGION ET KARMA -->
+            <div class="card religion-card">
+                <h2 style="color: var(--buddha-orange);"><i class="fa-solid fa-yin-yang"></i> SPIRITUALITÉ</h2>
+                <p style="color: #bbb; line-height: 1.6;">
+                    L'île de l'émeraude est sacrée, tout comme elle. Que ce soit sous la protection des temples bouddhistes ou avec les bénédictions des divinités hindoues (Ganesha veille sur ses games Roblox), elle possède un Karma niveau légendaire. 
+                </p>
+                <div style="margin-top: 20px; font-weight: bold; color: var(--gold); text-align: center; font-size: 1.5rem;">
+                    KARMA: OVER 9000 🕉️
+                </div>
             </div>
-        </div>
 
-        <!-- ROBLOX -->
-        <div class="tilt-card card-roblox">
-            <div class="card-content">
-                <h2 style="color: var(--roblox-red);"><i class="fa-solid fa-gamepad"></i> ROBLOX</h2>
-                <p>Notre terrain d'entente. Nos sessions de jeu interminables, les fous rires sur les serveurs, et cette complicité de malade qu'on ne retrouve nulle part ailleurs.</p>
+            <!-- JUL -->
+            <div class="card jul-card">
+                <h2 style="color: var(--jul-alien);">👽 LA ZONE (RELIGION SECONDAIRE)</h2>
+                <p style="color: #bbb; line-height: 1.6;">
+                    Si le Sri Lanka est sa patrie, "La Zone" est sa deuxième maison. Elle connaît les sons de Jul mieux que ses leçons d'histoire. Quand elle fait le signe Jul, même les aliens de l'espace la respectent.
+                </p>
+                <div class="stat-bar">
+                    <span>Heures passées à écouter Jul</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: var(--jul-alien);"></div></div>
+                </div>
             </div>
-        </div>
 
-        <!-- NIGHT CALLS -->
-        <div class="tilt-card card-calls">
-            <div class="card-content">
-                <h2 style="color: #8A2BE2;"><i class="fa-solid fa-phone-volume"></i> Appels Nocturnes</h2>
-                <p>Quand tout le monde dort, on refait le monde. Ces appels le soir, nos discussions sans fin... ce sont mes moments préférés. Un lien fraternel que rien ni personne ne pourra jamais briser. Je t'aime énormément.</p>
+            <!-- ROBLOX (TROLL) -->
+            <div class="card roblox-card">
+                <h2 style="color: var(--roblox-oof);"><i class="fa-solid fa-gamepad"></i> DOSSIER ROBLOX</h2>
+                <p style="color: #bbb; line-height: 1.6;">
+                    Notre QG virtuel. On y joue des heures. Par contre, il faut qu'on parle de son niveau... Officiellement elle est très forte, officieusement, le son "OOF" est la bande originale de ses parties. Mais c'est pour ça que c'est ma joueuse préférée.
+                </p>
+                <div class="stat-bar">
+                    <span>Skill Réel</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 15%; background: orange;"></div></div>
+                </div>
+                <div class="stat-bar">
+                    <span>Fous rires générés</span>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: #00ff00;"></div></div>
+                </div>
             </div>
+
+            <!-- APPELS NOCTURNES -->
+            <div class="card calls-card" style="text-align: center;">
+                <h2 style="color: #8A2BE2; justify-content: center;"><i class="fa-solid fa-moon"></i> LE SYNDICAT DE LA NUIT</h2>
+                <p style="color: #bbb; line-height: 1.6; max-width: 800px; margin: 0 auto 20px;">
+                    C'est la nuit que la magie opère. Nos appels le soir sont légendaires. On refait le monde, on juge les gens, on pleure de rire jusqu'à ne plus avoir de souffle. C'est dans ces moments-là que je me rends compte que je n'ai pas juste une sœur, j'ai une meilleure amie pour la vie. Je t'aime de fou Anukshika. ❤️
+                </p>
+                <button class="btn-troll" onclick="alert('Bip Bip Bip... Le serveur de Jul a crashé suite à un excès de love. Mais Anukshika est certifiée Boss Finale de la famille !')">
+                    ACTIVER LE PROTOCOLE D'AMOUR
+                </button>
+            </div>
+
         </div>
-
-    </section>
-
-    <footer>
-        DÉDIÉ À ANUKSHIKA • LA MEILLEURE SŒUR DE L'UNIVERS
-    </footer>
+    </div>
 
     <script>
-        // 1. CUSTOM CURSOR LOGIC
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        
-        window.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorDot.style.left = e.clientX + 'px';
-            cursorDot.style.top = e.clientY + 'px';
+        // --- BOOT SEQUENCE LOGIC ---
+        const lines = document.querySelectorAll('.boot-text');
+        const bootScreen = document.getElementById('boot-screen');
+        const mainContent = document.getElementById('main-content');
+
+        let delay = 500;
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.style.opacity = '1';
+            }, delay);
+            delay += 800; // Delay between lines
         });
 
-        document.querySelectorAll('.tilt-card').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-                cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.backgroundColor = 'transparent';
-                // Reset tilt
-                el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-            });
-        });
+        // Hide boot screen and show main content
+        setTimeout(() => {
+            bootScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            setTimeout(() => { mainContent.style.opacity = '1'; }, 100);
+        }, delay + 1000);
 
-        // 2. 3D TILT EFFECT ON CARDS
-        const cards = document.querySelectorAll('.tilt-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg
-                const rotateY = ((x - centerX) / centerX) * 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-        });
-
-        // 3. SCROLL REVEAL ANIMATION
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        cards.forEach(card => observer.observe(card));
-
-        // 4. PARTICLES BACKGROUND ANIMATION (CANVAS)
+        // --- PARTICLES BACKGROUND (PREMIUM VIBE) ---
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
-        let particlesArray;
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x; this.y = y;
-                this.directionX = directionX; this.directionY = directionY;
-                this.size = size; this.color = color;
-            }
-            draw() {
+        let particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 215, 0, 0.5)"; // Gold particles
+            particles.forEach(p => {
+                p.x += p.speedX; p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
+            });
+            requestAnimationFrame(animate);
         }
-
-        function initParticles() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 1) - 0.5;
-                let directionY = (Math.random() * 1) - 0.5;
-                let color = '#ffffff';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            initParticles();
-        });
-
-        initParticles();
-        animateParticles();
+        animate();
     </script>
 </body>
 </html>
